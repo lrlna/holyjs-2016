@@ -27,9 +27,31 @@
                 color: #8C90C8;
             }
 
+            blockquote {
+                quotes: "\201D""\201C""\2018""\2019";
+                color: #8C90C8; 
+            }
+
+            blockquote:before {
+                position: absolute;
+                font-style: normal;
+                color: #B9EAEA; 
+                content: open-quote;
+                font-size: 4em;
+                top: 0.3em;
+                margin-right: 0.4em;
+                margin-left: -0.4em;
+            }
+
+            .blockquote-footer, blockquote-footer > a {
+                float: right;
+                box-shadow: inset 0 -10px 0 #B9EAEA;
+                color: #8C90C8; 
+            }
+
             /* for when a font needs to be smaller than else */
             .smaller {
-                font-size: 50%;
+                font-size: 40%;
             }
 
             /* for fancy direction purposes */
@@ -234,10 +256,22 @@
         </div>
   
         <div>ok, cool, so what's a <em>command line module</em> anyway?</div>
-        <div class="rtl">git</div>
+        <div>git rebase -i sha </div>
         <div><img src='/img/git-rebase.gif'></div>
-        <div>npm</div>
+        <div class="rtl">npm i pckg@latest --save</div>
         <div><img src='/img/npm-install.gif'></div>
-        <div></div>
+        <div>ls -a1</div>
+        <div><img src='/img/ls.gif'></div>
+        <div class="rtl"> cowsay yo hollyjs</div>
+        <div><img src='/img/cowsay.gif'></div>
+        <div> wombat hiya holyjs -y</div>
+        <div><img src='/img/wombatjs.gif'></div>
+        <div>ok, cool, so what's a <em>command line module</em> anyway?</div>
+        <div>
+          <blockquote>
+            Command Line Interface is a means of interacting with a computer program where the user issues commands to the program in the form of successive lines of text.
+          </blockquote>
+          <div class="blockquote-footer">the internet</div>
+        </div>
     </body>
 </html>
