@@ -4,16 +4,18 @@
         <title>Building Interactive npm Command Line Applicaitons</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
         <style type='text/css'>
             body {
-                font-family:'Helvetica';
+                font-family: 'Open Sans', sans-serif;
                 letter-spacing:-5px;
-                background: #420F16;
+                background: #211741;
                 background-size:100%;
                 color: #B9EAEA;
                 margin:0;
                 padding:0;
-                font-weight:bold;
+                font-weight: 800;
             }
 
             h1, h2, h3, p {
@@ -22,12 +24,28 @@
 
             em, a {
                 font-style:normal;
-                color:#8dbd0c;
+                color: #8C90C8;
+            }
+
+            /* for when a font needs to be smaller than else */
+            .smaller {
+                font-size: 50%;
+            }
+
+            /* for fancy direction purposes */
+            .rtl {
+                direction: rtl;
+            }
+
+            .ltr {
+                direction: ltr;
+            }
+
+            .white {
+                color: #B8B3BA;
             }
 
             a {
-                background:#34d0e7;
-                color: #B9EAEA;
                 text-decoration:none;
             }
 
@@ -35,9 +53,12 @@
                 width:100%;
             }
 
+            pre {
+                font-family: 'Space Mono', monospace;
+                color: #B8B3BA;
+            }
+
             body > div {
-                cursor:pointer;
-                cursor:hand;
                 position:absolute;
                 top:0px;
                 left:0px;
@@ -56,6 +77,7 @@
             notes {
                 display:none;
             }
+
             /* normally not good, but ok in context of full screen directional navigation */
             :focus {
                 outline: 0;
@@ -97,13 +119,16 @@
                 for (i = 0; i < s.length; i++) s[i].style.display = 'none';
                 e.style.display = 'inline';
                 e.focus();
+                console.log(e.firstChild);
                 if (e.firstChild && e.firstChild.nodeName === 'IMG') {
-                document.body.style.backgroundImage = 'url("' + e.firstChild.src + '")';
-                e.firstChild.style.display = 'none';
-                if ('classList' in e) e.classList.add('imageText');
+                  console.log(e.firstChild);
+                  document.body.style.backgroundImage = 'url("' + e.firstChild.src + '")';
+                  e.firstChild.style.display = 'none';
+                  if ('classList' in e) e.classList.add('imageText');
                 } else {
-                document.body.style.backgroundImage = '';
-                document.body.style.backgroundColor = e.style.backgroundColor;
+                  console.log('here')
+                  document.body.style.backgroundImage = '';
+                  document.body.style.backgroundColor = e.style.backgroundColor;
                 }
                 if (ti !== undefined) window.clearInterval(ti);
                 if (t > 0) ti = window.setTimeout(fwd, t * 1000);
@@ -141,6 +166,71 @@
         </script>
     </head>
     <body>
-        <div>Hello world<em>Big</em></div>
+        <div>npm Command Line Interfaces</div>
+        <div>npm Command Line Interfaces,<em class="smaller"></br>the hot take</em></div>
+        <div><em>o(*^▽^*)o </em></div>
+        <div>Всем привет <em class="smaller"> ( ﾟ▽ﾟ )/  </em></div>
+        <div><em><a href="https://twitter.com/_lrlna" target="_blank">@_lrlna</a></em></div>
+        <div><img src="https://media.giphy.com/media/FqdGGgugkC4Xm/giphy.gif"> I <3 linux </div>
+        <div class="rtl">3GB of RAM 💻  </div>
+        <div>
+          I <em> <3 CLIs </em>
+        </div>
+
+        <div>
+          <pre>
+            yourCoolCli -rgb global-status --latest -m
+          </pre>
+        </div>
+
+        <div class="rtl">
+          <pre class="ltr">
+            yourCoolCli -rgb global-status --latest -m
+          </pre>
+          ?&nbsplol what
+        </div>
+
+        <div class="rtl"> monday </div>
+        <div>
+          <pre>
+          yourCoolCli -rgb global-status --latest -m
+          </pre>
+        </div>
+
+        <div class="rtl"> tuesday </div>
+        <div>
+          <pre>
+          yourCoolCli -rgb global-status --latest -m
+          </pre>
+        </div>
+        
+        <div class="rtl"> wednesday </div>
+        <div>
+          <pre>
+          yourCoolCli -rgb global-status --latest -m
+          </pre>
+        </div>
+
+        <div class="rtl"> thursday </div>
+        <div>
+          <pre>
+          yourCoolCli -rgb global-status --latest -m
+          </pre>
+        </div>
+
+        <div class="rtl"> friday </div>
+        <div><em class="smaller"> (つ◕౪◕)つ━☆ﾟ.*･｡ﾟ   </em></div>
+        <div>
+          <pre>
+          yourCoolCli -rgb global-status --latest -m
+          </pre>
+        </div>
+  
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
     </body>
 </html>
