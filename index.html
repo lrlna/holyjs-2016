@@ -6,190 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
-        <style type='text/css'>
-            body {
-                font-family: 'Open Sans', sans-serif;
-                letter-spacing:-5px;
-                background: #211741;
-                background-size:100%;
-                color: #B9EAEA;
-                margin:0;
-                padding:0;
-                font-weight: 800;
-            }
-
-            h1, h2, h3, p {
-                margin:0;
-            }
-
-            em, a {
-                font-style:normal;
-                color: #8C90C8;
-            }
-
-            blockquote {
-                quotes: "\201D""\201C""\2018""\2019";
-                color: #B9EAEA; 
-            }
-
-            blockquote:before {
-                position: absolute;
-                font-style: normal;
-                color: #8C90C8; 
-                content: open-quote;
-                font-size: 4em;
-                top: 0.3em;
-                margin-right: 0.4em;
-                margin-left: -0.4em;
-            }
-
-            .blockquote-footer, blockquote-footer > a {
-                float: right;
-                box-shadow: inset 0 -10px 0 #8C90C8;
-                color: #B9EAEA; 
-            }
-
-            /* for when a font needs to be smaller than else */
-            .smaller {
-                font-size: 40%;
-            }
-
-            .small {
-                font-size: 70%;
-            }
-
-            /* for fancy direction purposes */
-            .rtl {
-                direction: rtl;
-            }
-
-            .ltr {
-                direction: ltr;
-            }
-
-            .white {
-                color: #B8B3BA;
-            }
-
-            a {
-                text-decoration:none;
-            }
-
-            img {
-                width:100%;
-            }
-
-            pre {
-                font-family: 'Space Mono', monospace;
-                color: #B8B3BA;
-            }
-
-            body > div {
-                position:absolute;
-                top:0px;
-                left:0px;
-                padding:75px;
-                line-height:97%;
-            }
-
-            div.center {
-                text-align:center;
-            }
-
-            div.imageText {
-                text-shadow:0px 0px 5px rgba(0,0,0,0.2);
-            }
-
-            notes {
-                display:none;
-            }
-
-            /* normally not good, but ok in context of full screen directional navigation */
-            :focus {
-                outline: 0;
-            }
-        </style>
-        <script type='text/javascript'>
-            window.onload = function() {
-            var s = document.querySelectorAll('body > div'), ti, i;
-            var notes = [];
-            for (i = 0; i < s.length; i++) {
-                s[i].setAttribute('tabindex', 0);
-                var noteElements = s[i].getElementsByTagName('notes');
-                notes.push([]);
-                while (noteElements.length) {
-                var note = noteElements[0];
-                notes[i].push(note.innerHTML.trim());
-                note.parentNode.removeChild(note);
-                }
-            }
-            if (!s.length) return;
-            var big = window.big = { current: 0, forward: fwd, reverse: rev, go: go, length: s.length };
-            function resize() {
-                var w = window.innerWidth, h = window.innerHeight, e = s[big.current];
-                e.style.fontSize = h + 'px';
-                function pass(cinch, start) {
-                for (var i = start; i > 0 && (e.offsetWidth > w || e.offsetHeight > h); i -= cinch) {
-                    e.style.fontSize = i + 'px';
-                }
-                return i + cinch;
-                }
-                pass(2, pass(5, pass(10, h - 2)));
-                e.style.marginTop = (h - e.offsetHeight) / 2 + 'px';
-            }
-            function go(n) {
-                big.current = n;
-                for (i = 0; typeof console === 'object' && i < notes[n].length; i++) console.log('%c%s: %s', 'padding:5px;font-family:serif;font-size:18px;line-height:150%;', n, notes[n][i]);
-                var e = s[n], t = parseInt(e.getAttribute('data-time-to-next') || 0, 10);
-                document.body.className = e.getAttribute('data-bodyclass') || '';
-                for (i = 0; i < s.length; i++) s[i].style.display = 'none';
-                e.style.display = 'inline';
-                e.focus();
-                console.log(e.firstChild);
-                if (e.firstChild && e.firstChild.nodeName === 'IMG') {
-                  console.log(e.firstChild);
-                  document.body.style.backgroundImage = 'url("' + e.firstChild.src + '")';
-                  e.firstChild.style.display = 'none';
-                  if ('classList' in e) e.classList.add('imageText');
-                } else {
-                  console.log('here')
-                  document.body.style.backgroundImage = '';
-                  document.body.style.backgroundColor = e.style.backgroundColor;
-                }
-                if (ti !== undefined) window.clearInterval(ti);
-                if (t > 0) ti = window.setTimeout(fwd, t * 1000);
-                resize();
-                if (window.location.hash !== n) window.location.hash = n;
-                document.title = e.textContent || e.innerText;
-            }
-            document.onclick = function(e) { if (e.target.tagName !== 'A') go(++big.current % s.length); };
-            function fwd() { go(Math.min(s.length - 1, ++big.current)); }
-            function rev() { go(Math.max(0, --big.current)); }
-            document.onkeydown = function(e) {
-                if (e.which === 39 || e.which === 34 || e.which === 40) fwd();
-                if (e.which === 37 || e.which === 33 || e.which === 38) rev();
-            };
-            document.ontouchstart = function(e) {
-                var x0 = e.changedTouches[0].pageX;
-                document.ontouchend = function(e2) {
-                var x1 = e2.changedTouches[0].pageX;
-                if (x1 - x0 < 0) fwd();
-                if (x1 - x0 > 0) rev();
-                };
-            };
-            function parse_hash() {
-                return Math.max(Math.min(s.length - 1,
-                parseInt(window.location.hash.substring(1), 10)), 0);
-            }
-            if (window.location.hash) big.current = parse_hash() || big.current;
-            window.onhashchange = function() {
-                i = parse_hash();
-                if (i !== big.current) go(i);
-            };
-            window.onresize = resize;
-            go(big.current);
-            };
-        </script>
+        <link href="style.css" rel="stylesheet">
+        <script type='text/javascript' src="index.js"></script>
     </head>
     <body>
         <div>npm Command Line Interfaces</div>
@@ -197,7 +15,7 @@
         <div><em>o(*^▽^*)o </em></div>
         <div>Всем привет <em class="smaller"> ( ﾟ▽ﾟ )/  </em></div>
         <div><em><a href="https://twitter.com/_lrlna" target="_blank">@_lrlna</a></em></div>
-        <div><img src="https://media.giphy.com/media/FqdGGgugkC4Xm/giphy.gif"> I <3 linux </div>
+        <div><img src="/img/keyboard.gif"> I <3 linux </div>
         <div class="rtl">3GB of RAM 💻  </div>
         <div>
           I <em> <3 CLIs </em>
@@ -213,7 +31,6 @@
           <pre class="ltr">
             yourCoolCli -rgb global-status --latest -m
           </pre>
-          ?&nbsplol what
         </div>
 
         <div class="rtl"> monday </div>
@@ -256,7 +73,6 @@
           <pre class="ltr">
             yourCoolCli -rgb global-status --latest -m
           </pre>
-          ?&nbsplol what
         </div>
   
         <div>ok, cool, so what's a <em>command line module</em> anyway?</div>
@@ -272,22 +88,109 @@
         <div><img src='/img/wombatjs.gif'></div>
         <div>ok, cool, so what's a <em>command line module</em> anyway?</div>
         <div>
-          <blockquote>
-            Command Line Interface is a means of interacting with a computer program where the user issues commands to the program in the form of successive lines of text.
+          <blockquote class="rtl">
+          Command Line Interface is a means of interacting with a computer program where the user issues commands to the program in the form of successive lines of text.
           </blockquote>
           <div class="blockquote-footer">the internet</div>
         </div>
+        <div>issues commands to the program</div>
+        <div><em class="strikethrough">issues commands</em> interacts the program</div>
+        <div class="rtl">
+          <pre class="ltr">
+            yourCoolCli -rgb global-status --latest -m
+          </pre>
+        </div>
+        <div>Irina's guide to interactivity</div>
+        <div class="rtl">so <em> you </em> want to write a command line module <em class="small">٩( ´･ш･ )و</em></div>
+        <div class="small"></br>🤖 --> bash?</div>
+        <div class="small"></br>🤖 --> ruby?</div>
+        <div class="small"></br>🤖 --> perl?</div>
+        <div class="small"></br>🤖 --> node.</div>
+        <div><em>(ノ´ロ`)ノ</em></br>argument parsing</div>
+        <div><pre>process.argv.slice(2)</pre></div>
+        <div><img src="/img/parser.gif"/></div>
+        <div class="small"></br>🤖 --> node.</div>
+        <div class="rtl">Irina's guide to interactivity</div>
+        <div><img src="/img/keyboard.gif"/>Level 1</div>
+        <div>Argument parsing</div>
+        <div><img src="/img/yargs.png"/></br><em class="smaller"></br></br>github.com/yargs</em></div>
+        <div><img src="/img/parser.gif"/></div>
+        <div><img src="/img/yargs.png"/></br><em class="smaller"></br></br>github.com/yargs</em></div>
+        <div>We use options on daily basis</div>
+        <div><pre>git reabse <em>-i</em> fb5f13 </pre></div>
+        <div><img src="/img/keyboard.gif"/>level 2</div>
+        <div>give your options aliases</div>
+        <div>
+          <pre>
+          var argv = require('yargs')
+            .usage('Usage: $0 -n [string] -f [string]')
+            .option('n', {
+              <em>alias: 'name'</em>,
+              describe: 'Twitter name of your choosing',
+              type: 'string',
+              demand: true
+            })
+          </pre>
+        </div>
+
+        <div>
+          <pre>
+          twitter-node-name --name ira<2728>
+          </pre>
+        </div>
+        <div>
+          <pre>
+          twitter-node-name -n ira<2728>
+          </pre>
+        </div>
+        <div><img src="/img/twitter-node-name.gif"/> </div>
+        <div><img src="/img/keyboard.gif"/>level 3</div>
+        <div>set up <em> default </em> values</div>
+        <div>
+          <pre>
+          .option("yellow", {
+            alias: "y",
+            describe: "yellow wombat",
+            type: "boolean",
+            <em>default: true</em>
+          })
+          </pre>
+        </div>
+        <div><img src="/img/keyboard.gif"/>level 4</div>
+        <div>provide a <em> help </em> menu </div>
+        <div><em>protip:</em> use standardized CLI <em>usage patterns</em></div>
+        <div><img src="/img/cli-usage-pattern.jpg"/></div>
+        <div>
+          <pre>
+          var argv = require('yargs')
+             // all your options and commands, yo
+            <em>.help()</em>
+            .argv
+          </pre>
+        </div>
+        <div><img src="/img/twitter-node-name-help.gif"/> </div>
+        <div><img src="/img/keyboard.gif"/>level 5</div>
+        <div>get input from <em>users</em></div>
+        <div>
+          <pre>
+          <em>prompt.start()</em>
+          prompt.get(getPromptSchema(), function(err, result) {
+          // do thing with result
+          })
+          </pre>
+        </div>
+        <div>create schema</div>
+        <div></div>
+        <div><img src="/img/get-cats.gif"/></div>
+        <div></div>
         <div>Resources</div>
         <div>
           <a href="http://www.bbc.co.uk/schools/gcsebitesize/ict/software/5userinterfacesrev2.shtml" target="_blank">User Interfaces, BBC</a>
           </br>
           <a href="http://homepage.cs.uri.edu/~thenry/resources/unix_art/ch11s06.html" target="_blank">User Interface Design Patterns</a>
           </br>
-          <a href="http://homepage.cs.uri.edu/~thenry/resources/unix_art/ch11s06.html" target="_blank">User Interface Design Patterns</a>
+          <a href="http://docopt.org/" target="_blank">CLI Usage Patterns from docopt</a>
           </br>
-          <a href="http://homepage.cs.uri.edu/~thenry/resources/unix_art/ch11s06.html" target="_blank">User Interface Design Patterns</a>
-          </br>
-          <a href="http://homepage.cs.uri.edu/~thenry/resources/unix_art/ch11s06.html" target="_blank">User Interface Design Patterns</a>
         </div>
         <div>Спасибо, Москва!! </br><em class="small"> (۶•̀ᴗ•́)۶ </em> </div>
     </body>
