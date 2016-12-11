@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Building Interactive npm Command Line Applicaitons</title>
+        <title>Building Interactive node Command Line Applicaitons</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -10,11 +10,13 @@
         <script type='text/javascript' src="index.js"></script>
     </head>
     <body>
-        <div>npm Command Line Interfaces</div>
-        <div>npm Command Line Interfaces,<em class="smaller"></br>the hot take</em></div>
+        <div>node Command Line Interfaces</div>
+        <div>node Command Line Interfaces,<em class="smaller"></br>the hot take</em></div>
         <div><em>o(*^▽^*)o </em></div>
         <div>Всем привет <em class="smaller"> ( ﾟ▽ﾟ )/  </em></div>
         <div><em><a href="https://twitter.com/_lrlna" target="_blank">@_lrlna</a></em></div>
+        <div>node Command Line Interfaces</div>
+        <div>node Command Line Interfaces,<em class="smaller"></br>the hot take</em></div>
         <div><img src="/img/keyboard.gif"> I <3 linux </div>
         <div class="rtl">3GB of RAM 💻  </div>
         <div>
@@ -95,11 +97,23 @@
         </div>
         <div>issues commands to the program</div>
         <div><em class="strikethrough">issues commands</em> interacts the program</div>
-        <div class="rtl">
-          <pre class="ltr">
-            yourCoolCli -rgb global-status --latest -m
-          </pre>
-        </div>
+        <div>ok, cool, so what's a <em>command line module</em> anyway?</div>
+        <div><img src="/img/keyboard.gif"/>unix</div>
+        <div>unix interface design patterns</div>
+        <div>filter</div>
+        <div><img src="/img/filter.jpg"></div>
+        <div>sink</div>
+        <div><img src="/img/sink.jpg"></div>
+        <div>source</div>
+        <div><img src="/img/source.jpg"></div>
+        <div><em>ed</em> pattern</div>
+        <div><img src="/img/ed-pattern1.jpg"></div>
+        <div><img src="/img/ed-pattern2.jpg"></div>
+        <div>roguelike</div>
+        <div><img src="/img/rogue-unix.png"></div>
+        <div><img src="/img/roguelike.jpg"></div>
+        <div>spooler/deamon</div>
+        <div><img src="/img/spooler-daemon.jpg"></div>
         <div>Irina's guide to interactivity</div>
         <div class="rtl">so <em> you </em> want to write a command line module <em class="small">٩( ´･ш･ )و</em></div>
         <div class="small"></br>🤖 --> bash?</div>
@@ -179,10 +193,25 @@
           })
           </pre>
         </div>
-        <div>create schema</div>
-        <div></div>
+        <div>create <em>schema</em> to return back</div>
+        <div>
+          <pre>
+          return schema = {
+            properties: {
+              initial: {
+                description: 'intial number of cats',
+              },
+              current: {
+                description: 'current number of cats'
+              },
+              age: {
+                description: 'your age'
+              }
+            }
+          }
+          </pre>
+        </div>
         <div><img src="/img/get-cats.gif"/></div>
-        <div></div>
         <div>Resources</div>
         <div>
           <a href="http://www.bbc.co.uk/schools/gcsebitesize/ict/software/5userinterfacesrev2.shtml" target="_blank">User Interfaces, BBC</a>
@@ -190,6 +219,7 @@
           <a href="http://homepage.cs.uri.edu/~thenry/resources/unix_art/ch11s06.html" target="_blank">User Interface Design Patterns</a>
           </br>
           <a href="http://docopt.org/" target="_blank">CLI Usage Patterns from docopt</a>
+          <a href="https://en.wikipedia.org/wiki/Rogue_(video_game)#/media/File:Rogue_Unix_Screenshot_CAR.PNG" target="_blank">Rogue</a>
           </br>
         </div>
         <div>Спасибо, Москва!! </br><em class="small"> (۶•̀ᴗ•́)۶ </em> </div>
